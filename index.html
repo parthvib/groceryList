@@ -13,27 +13,32 @@
     <script src="script.js" defer></script>
 
 </head>
-
 <body>
-    <section id="main">
-    <h1>Grocery List</h1>
-    <div class="form">
-        <form>
-            <input type="text" id="items" required>
-            <button type="submit" id="btn">Add</button>
-        </form>
-    </div>
-    <div class="list">
-        <p id="p">
-            hello
-        </p>
-        <div class="btns">
-            <button class="fbtn fb1"><i class="fa fa-pencil  fa-2x "  aria-hidden="true"></i></button>
-            <button class="fbtn fb2"><i class="fa fa-trash   fa-2x" aria-hidden="true" ></i></button>
+    <section class="mains" >
+        <form action="" id="formD">
+        <h1>Grocery List</h1>
+        <div class="mainF">
+            <input type="text" id="gItems" required>
+            <button type="submit" class="btn">Add</button>
         </div>
-    </div>
-        <button class="clear-btn">Clear Items</button>
+        </form>
+        <div class="container">
+            <div class="grocery-list">
+            <!-- <article class="grocery-item">
+                   <p>
+                        items
+                    </p>
+                    <div>
+                    <button type="button"><i class="fa fa-pencil  edit fa-lg" aria-hidden="true"></i></button>
+                    <button type="button"><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+                </div>--> 
+                </div> 
+            </article>
+                
+                <button class="clear-btn " type="button">clear items</button>
+          
+        </div>
     </section>
+
 </body>
 
-</html>

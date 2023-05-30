@@ -1,98 +1,94 @@
 *{
-    font-family:  'roboto', cursive;
-    box-sizing: border-box;
-}
+font-family: 'Times New Roman', Times, serif;
+box-sizing: border-box;
 
-#main{
-    height: auto;
+}
+.mains{
+    background-color: rgb(139, 139, 249);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0, 0.1);
+    border-radius: 10px;
     width: 30rem;
-    background-color: rgb(243, 226, 193);
-    margin-top: 5rem;
-    align-self: center;
-    margin-left: 30rem;
-    border-radius: 5px;
+    height: auto;
+    margin: auto;
     
-    /* border-radius:50px; */
+
+} 
+form{
+    background-color: rgb(136, 161, 244);
+    width: 30rem;
+    border-radius: 10px;
+    
+}
+.container{
+    background-color: rgb(163, 179, 232);
+    border-radius: 10px;
+
+}
+p{
+    display: inline;
+    font-size: 1rem;
+    margin: 1rem;
+}
+.btn{
+    display: inline-block;
+    width: 5rem;
+    height: 2rem;
+    font-size: 1rem;
 }
 h1{
-    padding-left: 11rem;
-    padding-top: 2rem;
+    text-align: center;
 }
 input{
-    width: 70%;
-    height:4%;
-    border: none;
-    margin-left: 1.5rem;
-    box-shadow:3px 3px 2px 2px rgba(240, 213, 156, 0.9);
-    font-size: large;
-}
-#btn{
-    background-color :rgb(242, 177, 92);
-    width: 15%;
-    height: 4%;
-   margin-top: 1ch;
-   color: white;
-   font-weight: bold;
-   margin-left: 0.3rem;
-    font-size: large;
-    border:none;
-    border-color: rgb(245, 186, 110);
-    box-shadow: 3px 3px 2px 2px rgba(240, 200, 147,0.9);
+    
+    width: 20rem;
+    height: 2rem;
+    margin-left:3rem;
 
 }
-#btn:hover{
-background-color: rgb(236, 178, 70);
-color:white;
+ 
+
+button{
+    background-color: rgb(72, 72, 214);
+    color: white;
+    border: none;
+    border-radius: 4px;
 }
-.list{
+.edit{
+
+padding: 3px 2px 3px 3px ;
+color: white;
+
+}
+.del{
+    padding: 3px 2px 3px 3px ;
+
+    color: white;
+
+} 
+.btn-container{
+    margin-top: 15px;
+}
+.grocery-item{
     display: flex;
     justify-content: space-around;
-    background-color: rgb(233, 163, 77);
-    width: 85%;
-    height: 3rem;
-    margin-left: 1.5rem;
-    margin-bottom: 4rem;
-
-}
-
-
-p{
-    display: inline-block;
-    font-size:2rem;
-    margin-top: 5px;
-
-}
-
-.btns{
-    display: inline;
-    font-size:6rem;
-    margin-top: -55px;
-    background-color: transparent;
-
-}
-.fbtn{
-    background-color: transparent;
-    border: none;
-}
-
-.clear-btn{
-    /* display: block;  */
-    width: 10rem;
-    margin: auto;
-    margin-bottom: 2rem;
-    margin-left: 11rem;
-  
-   
-    background-color: orange;
-    border: none; 
-    padding: auto;
-   height: 2rem;
+    margin-top: 1rem;
+   background-color: rgb(84, 140, 213);
    color: white;
-   font-weight: bold;
-   
-    font-size: large;
-    border:none;
-    border-color: rgb(236, 158, 55);
-    /* box-shadow: 3px 3px 2px 2px rgba(240, 200, 147,0.9); */
+   font-size: 5px;
 
+    
+}
+.clear-btn{
+    display: block;
+    width: 6rem;
+    height: 2rem;
+    font-size:1rem;
+   margin:auto;
+   margin-top: 2rem;
+   margin-bottom: 1rem;
+}
+.show-btn{
+    visibility: hidden;
 }
