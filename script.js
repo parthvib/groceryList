@@ -18,7 +18,8 @@ clearBtn.addEventListener('click',remove);
 
 function add(event) {
     event.preventDefault();
-    const id = new Date().getTime().toString();
+    const id = Math.floor(Math.random()*100);
+    console.log(id);
     const value = items.value;
     if (value !== " ") {
         const element = document.createElement('article');
@@ -28,19 +29,24 @@ function add(event) {
         element.setAttributeNode(atr);
         element.innerHTML = `<p>${value}</p>
                     <div class="btn-container">
-                    <button type="button"><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
-                    <button type="button"><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+                    <button type="button" id=edit-${id}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
+                    <button type="button" id= delete-${id}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
                     </div>
                     </div>`
                     
+
                     
                     list.appendChild(element);
                     
-                    const dele = document.querySelector('.del');
-                    const edit = document.querySelector('.edit');
+                    const edit = document.getElementById(`edit-${id}`);
+                    console.log(edit);
+                //     const dele = document.querySelector('.edit');
 
-                    dele.addEventListener('click',delItems);
-                    edit.addEventListener('click',editItems);
+                //    dele.addEventListener('click',delItems);
+                   edit.addEventListener('click',(event) => {
+                        console.log("event:",event);
+                        // editItems(event);
+                    });
                     addToLocalStorage(id,value);
                     setToDefault();
             
@@ -59,6 +65,7 @@ function add(event) {
 function delItems(event){
     const element=event.currentTarget.parentElement.parentElement.parentElement;
     const id=element.dataset.id;
+
     list.removeChild(element);
     setToDefault();
     // removeFromLocalStorage(id);
@@ -67,13 +74,15 @@ function editItems(event){
     // const element=event.currentTarget.parentElement.parentElement.parentElement;
     //  editElement=event.currentTarget.parentElement.parentElement.previousElementSibling;
     
+    // items.value=element.textContent;
     //  editFlag=true;
     //  editId=element.dataset.id;
     //  submit.textContent="edit";
      
     const id=event.currentTarget.dataset.id;
+    console.log(id);
     const element=event.dataset.id;
-    items.value=element.textContent;
+    console.log(event);
 
     const editElement=items.value;
     element.textContent=editElement;
