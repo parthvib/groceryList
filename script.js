@@ -28,7 +28,7 @@ function add(event) {
         element.setAttributeNode(atr);
         element.innerHTML = `<p>${value}</p>
                     <div class="btn-container">
-                    <button type="button"><i class="fa fa-pencil  edit fa-lg" aria-hidden="true"></i></button>
+                    <button type="button"><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
                     <button type="button"><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
                     </div>
                     </div>`
@@ -64,14 +64,25 @@ function delItems(event){
     // removeFromLocalStorage(id);
 }
 function editItems(event){
-    const element=event.currentTarget.parentElement.parentElement.parentElement;
-     editElement=event.currentTarget.parentElement.parentElement.previousElementSibling;
-     items.value=editElement.innerHTML;
-     editFlag=true;
-     editId=element.dataset.id;
-     submit.textContent="edit";
+    // const element=event.currentTarget.parentElement.parentElement.parentElement;
+    //  editElement=event.currentTarget.parentElement.parentElement.previousElementSibling;
+    
+    //  editFlag=true;
+    //  editId=element.dataset.id;
+    //  submit.textContent="edit";
      
+    const id=event.currentTarget.dataset.id;
+    const element=event.dataset.id;
+    items.value=element.textContent;
+
+    const editElement=items.value;
+    element.textContent=editElement;
+    submit.textContent="edit";
+    
     //  setToDefault();
+
+    
+
 }
 function setToDefault(){
     items.value="";
