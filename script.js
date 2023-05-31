@@ -18,36 +18,33 @@ clearBtn.addEventListener('click',remove);
 
 function add(event) {
     event.preventDefault();
-    const id = Math.floor(Math.random()*100);
-    console.log(id);
+    const itemId = createRandomId();
+    console.log(itemId);
     const value = items.value;
     if (value !== " ") {
         const element = document.createElement('article');
         element.classList.add('grocery-item');
         const atr = document.createAttribute('data-id');
-        atr.value = id;
+        atr.value = itemId;
         element.setAttributeNode(atr);
         element.innerHTML = `<p>${value}</p>
                     <div class="btn-container">
-                    <button type="button" id=edit-${id}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
-                    <button type="button" id= delete-${id}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+                    <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
+                    <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
                     </div>
                     </div>`
                     
-
-                    
                     list.appendChild(element);
-                    
-                    const edit = document.getElementById(`edit-${id}`);
-                    console.log(edit);
-                //     const dele = document.querySelector('.edit');
 
-                //    dele.addEventListener('click',delItems);
-                   edit.addEventListener('click',(event) => {
-                        console.log("event:",event);
-                        // editItems(event);
-                    });
-                    addToLocalStorage(id,value);
+                    const dele=document.querySelector("#delete-" +itemId);
+                    const edit=document.querySelector("#edit-" +itemId);
+
+                    edit.addEventListener("click",editItems);
+                    dele.addEventListener("click",delItems);
+
+                    
+                  
+                    addToLocalStorage(itemId,value);
                     setToDefault();
             
     }
@@ -63,10 +60,11 @@ function add(event) {
 }
 
 function delItems(event){
-    const element=event.currentTarget.parentElement.parentElement.parentElement;
-    const id=element.dataset.id;
+    const element=event.currentTarget.parentElement.previousElementSibling;
+    console.log(element);
+    // const id=element.dataset.id;
 
-    list.removeChild(element);
+    element.remove();
     setToDefault();
     // removeFromLocalStorage(id);
 }
@@ -79,14 +77,39 @@ function editItems(event){
     //  editId=element.dataset.id;
     //  submit.textContent="edit";
      
-    const id=event.currentTarget.dataset.id;
-    console.log(id);
-    const element=event.dataset.id;
-    console.log(event);
+    const id=event.currentTarget.id;
+    console.log({id});
+    const element=event.currentTarget.parentElement.previousElementSibling;
+    console.log(element);
+
+    // let pElement=items.value;
+
+    items.value=element.textContent;
+    console.log(items.value);
 
     const editElement=items.value;
+    console.log("editElements",editElement);
+    
     element.textContent=editElement;
+    console.log(element.textContent);
+    element.parentElement.remove();
+
+    
     submit.textContent="edit";
+   
+    const newElement=items.value;
+    let newId=newElement.id;
+    element.textContent=newElement.textContent;
+    // document.id.remove(id);
+
+   element.textContent=newElement.textContent;
+
+  
+
+
+    
+
+
     
     //  setToDefault();
 
@@ -142,5 +165,10 @@ function getLocalStorage(){
      return localStorage.getItem("list")
      ? JSON.parse(localStorage.getItem("list"))
      :[];
+
+}
+
+function createRandomId(){
+    return Math.random().toString(16).slice(2);//to string will convert string into hexadecimal.
 
 }
