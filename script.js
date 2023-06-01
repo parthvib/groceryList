@@ -14,7 +14,11 @@ editFlag = false;
 form.addEventListener('submit', add);
 clearBtn.addEventListener('click',remove);
 
+window.addEventListener('load',function(){
+    getListOnLoad();
 
+
+})
 
 function add(event) {
     event.preventDefault();
@@ -60,9 +64,15 @@ function add(event) {
 }
 
 function delItems(event){
-    const element=event.currentTarget.parentElement.previousElementSibling;
+    const element=event.currentTarget.parentElement.parentElement;
     console.log(element);
-    // const id=element.dataset.id;
+    const deleId=event.currentTarget.id?.replace(element);
+    console.log(deleId);
+    removeFromLocalStorage(deleId);
+    const itemElement=document.getElementById(deleId);
+    console.log(itemElement);
+    itemElement.remove();
+    const id=element.dataset.id;
 
     element.remove();
     setToDefault();
@@ -81,6 +91,8 @@ function editItems(event){
     console.log({id});
     const element=event.currentTarget.parentElement.previousElementSibling;
     console.log(element);
+    const editId=event.currentTarget.id?.replace(element);
+    console.log(editId);
 
     // let pElement=items.value;
 
@@ -103,17 +115,9 @@ function editItems(event){
     // document.id.remove(id);
 
    element.textContent=newElement.textContent;
+   editLocalStorage(editId,newElement);
 
-  
-
-
-    
-
-
-    
     //  setToDefault();
-
-    
 
 }
 function setToDefault(){
@@ -139,7 +143,7 @@ function remove(){
 
         items.forEach(function(item){
             list.removeChild(item);
-            
+            localStorage.removeItem(item);
         }); 
     }
    else {
@@ -155,11 +159,18 @@ function remove(){
     setToDefault();
 }
 
-function removeFromLocalStorage(id){
-
+function removeFromLocalStorage(deleId){
+const dataFromLS=getLocalStorage();
+const filter=dataFromLS.filter((item)=>item.id==deleId);
+console.log({filter});
+localStorage.setItem("list",JSON.stringify(filter));
+localStorage.removeItem({filter});
 }
-function editLocalStorage(id,value){
-
+function editLocalStorage(editId){
+    const dataFromLS=getLocalStorage();
+    const filter=dataFromLS.filter((item)=>item.id==editId);
+    console.log({filter});
+    localStorage.setItem("list",JSON.stringify(filter));
 }
 function getLocalStorage(){
      return localStorage.getItem("list")
@@ -171,4 +182,11 @@ function getLocalStorage(){
 function createRandomId(){
     return Math.random().toString(16).slice(2);//to string will convert string into hexadecimal.
 
+}
+function getListOnLoad(){
+const dataItems=getLocalStorage();
+for(var i=0;i < dataItems.length;i++){
+    list.innerHTML=document.classList.add('grocery-list');
+
+}
 }
