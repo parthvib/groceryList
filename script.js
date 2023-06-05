@@ -2,7 +2,6 @@ const form = document.getElementById('formD');
 const items = document.getElementById('gItems');//grocery
 const submit = document.querySelector('.btn');//submitben
 const clearBtn = document.querySelector('.clear-btn');
-
 const container = document.querySelector('.container');
 const list = document.querySelector('.grocery-list');
 // const dele=document.querySelector('.del');
@@ -15,21 +14,23 @@ form.addEventListener('submit', add);
 clearBtn.addEventListener('click',remove);
 
 window.addEventListener('load',function(){
-    getListOnLoad();
+    
+        getListOnLoad();
+});
 
 
-})
 
 function add(event) {
     event.preventDefault();
     const itemId = createRandomId();
-    console.log(itemId);
+    // console.log(itemId);
     const value = items.value;
     if (value !== " ") {
         const element = document.createElement('article');
         element.classList.add('grocery-item');
         const atr = document.createAttribute('data-id');
         atr.value = itemId;
+        // console.log("atr",atr.value);
         element.setAttributeNode(atr);
         element.innerHTML = `<p>${value}</p>
                     <div class="btn-container">
@@ -37,7 +38,7 @@ function add(event) {
                     <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
                     </div>
                     </div>`
-                    
+                 
                     list.appendChild(element);
 
                     const dele=document.querySelector("#delete-" +itemId);
@@ -50,6 +51,7 @@ function add(event) {
                   
                     addToLocalStorage(itemId,value);
                     setToDefault();
+                    sorting();
             
     }
     else if(value && editFlag){
@@ -183,10 +185,44 @@ function createRandomId(){
     return Math.random().toString(16).slice(2);//to string will convert string into hexadecimal.
 
 }
-function getListOnLoad(){
-const dataItems=getLocalStorage();
-for(var i=0;i < dataItems.length;i++){
-    list.innerHTML=document.classList.add('grocery-list');
+// function getListOnLoad(){
+// const dataItems=getLocalStorage();
+// for(var i=0;i < dataItems.length;i++){
+//     list.innerHTML=document.classList.add('grocery-list');
 
-}
+// }
+// }
+
+function getListOnLoad(){
+    const dataItems=getLocalStorage();
+    console.log(dataItems);
+    for(var i=0;i<dataItems.length;i++){
+    const element = document.createElement('article');
+        element.classList.add('grocery-item');
+        const atr = document.createAttribute('data-id');
+        const itemId=dataItems[i].id;
+        atr.value = itemId;
+        element.setAttributeNode(atr);
+        element.innerHTML = `<p>${dataItems[i].value}</p>
+                    <div class="btn-container">
+                    <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
+                    <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+                    </div>
+                    </div>`
+                    
+                    list.appendChild(element);
+
+                    const dele=document.querySelector("#delete-" +itemId);
+                    const edit=document.querySelector("#edit-" +itemId);
+
+                    edit.addEventListener("click",editItems);
+                    dele.addEventListener("click",delItems);
+
+                    
+    }    
+                 
+
+
+  
+    
 }
