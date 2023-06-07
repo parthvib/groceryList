@@ -1,8 +1,8 @@
-const form = document.getElementById('formD');
-const items = document.getElementById('gItems');//grocery
+const formData = document.getElementById('form-data');
+const items = document.getElementById('grocery-item');//grocery
 const submit = document.querySelector('.btn');//submitben
 const clearBtn = document.querySelector('.clear-btn');
-const container = document.querySelector('.container');
+// const container = document.querySelector('.container');
 const list = document.querySelector('.grocery-list');
 // const dele=document.querySelector('.del');
 
@@ -10,17 +10,17 @@ let editElement;
 let editId = "";
 editFlag = false;
 
-form.addEventListener('submit', add);
-clearBtn.addEventListener('click',remove);
+formData.addDataEventListener('submit', addData);
+clearBtn.addDataEventListener('click',remove);
 
-window.addEventListener('load',function(){
+window.addDataEventListener('load',function(){
     
         getListOnLoad();
 });
 
 
 
-function add(event) {
+function addData(event) {
     event.preventDefault();
     const itemId = createRandomId();
     // console.log(itemId);
@@ -28,10 +28,10 @@ function add(event) {
     if (value !== " ") {
         const element = document.createElement('article');
         element.classList.add('grocery-item');
-        const atr = document.createAttribute('data-id');
-        atr.value = itemId;
-        // console.log("atr",atr.value);
-        element.setAttributeNode(atr);
+        const attribute = document.createAttribute('data-id');
+        attribute.value = itemId;
+        // console.log("attribute",attribute.value);
+        element.setAttributeNode(attribute);
         element.innerHTML = `<p>${value}</p>
                     <div class="btn-container">
                     <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
@@ -44,12 +44,12 @@ function add(event) {
                     const dele=document.querySelector("#delete-" +itemId);
                     const edit=document.querySelector("#edit-" +itemId);
 
-                    edit.addEventListener("click",editItems);
-                    dele.addEventListener("click",delItems);
+                    edit.addDataEventListener("click",editItems);
+                    dele.addDataEventListener("click",delItems);
 
                     
                   
-                    addToLocalStorage(itemId,value);
+                    addDataToLocalStorage(itemId,value);
                     setToDefault();
                     sorting();
             
@@ -112,7 +112,7 @@ function editItems(event){
     submit.textContent="edit";
    
     const newElement=items.value;
-    let newId=newElement.id;
+    let newId = newElement.id;
     element.textContent=newElement.textContent;
     // document.id.remove(id);
 
@@ -126,9 +126,9 @@ function setToDefault(){
     items.value="";
     editFlag=false;
     editId='';
-    submit.textContent="add";
+    submit.textContent="addData";
 }
-function addToLocalStorage(id,value){
+function addDataToLocalStorage(id,value){
    const grocery={id,value};
 //    console.log(grocery);
 let items=getLocalStorage();
@@ -149,28 +149,28 @@ function remove(){
         }); 
     }
    else {
-        // document.classList.add(".show-btn");
+        // document.classList.addData(".show-btn");
 
     }
     // container.classList.remove(container);
     alert("list cleared");
     localStorage.removeItem('list');
    
-        // document.classList.add(".show-btn");
+        // document.classList.addData(".show-btn");
     
     setToDefault();
 }
 
 function removeFromLocalStorage(deleId){
-const dataFromLS=getLocalStorage();
-const filter=dataFromLS.filter((item)=>item.id==deleId);
+const getDataFromList=getLocalStorage();
+const filter=getDataFromList.filter((item)=>item.id==deleId);
 console.log({filter});
 localStorage.setItem("list",JSON.stringify(filter));
 localStorage.removeItem({filter});
 }
 function editLocalStorage(editId){
-    const dataFromLS=getLocalStorage();
-    const filter=dataFromLS.filter((item)=>item.id==editId);
+    const getDataFromList=getLocalStorage();
+    const filter=getDataFromList.filter((item)=>item.id==editId);
     console.log({filter});
     localStorage.setItem("list",JSON.stringify(filter));
 }
@@ -188,7 +188,7 @@ function createRandomId(){
 // function getListOnLoad(){
 // const dataItems=getLocalStorage();
 // for(var i=0;i < dataItems.length;i++){
-//     list.innerHTML=document.classList.add('grocery-list');
+//     list.innerHTML=document.classList.addData('grocery-list');
 
 // }
 // }
@@ -198,11 +198,11 @@ function getListOnLoad(){
     console.log(dataItems);
     for(var i=0;i<dataItems.length;i++){
     const element = document.createElement('article');
-        element.classList.add('grocery-item');
-        const atr = document.createAttribute('data-id');
+        element.classList.addData('grocery-item');
+        const attribute = document.createAttribute('data-id');
         const itemId=dataItems[i].id;
-        atr.value = itemId;
-        element.setAttributeNode(atr);
+        attribute.value = itemId;
+        element.setAttributeNode(attribute);
         element.innerHTML = `<p>${dataItems[i].value}</p>
                     <div class="btn-container">
                     <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
@@ -215,8 +215,8 @@ function getListOnLoad(){
                     const dele=document.querySelector("#delete-" +itemId);
                     const edit=document.querySelector("#edit-" +itemId);
 
-                    edit.addEventListener("click",editItems);
-                    dele.addEventListener("click",delItems);
+                    edit.addDataEventListener("click",editItems);
+                    dele.addDataEventListener("click",delItems);
 
                     
     }    
