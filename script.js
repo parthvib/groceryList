@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 const formData = document.getElementById('form-data');
 const items = document.getElementById('grocery-item');//grocery
+=======
+// variables
+const form = document.getElementById('formD');
+const items = document.getElementById('gItems');//grocery
+>>>>>>> 3d11883692104da044c767944c009b9db0a40f56
 const submit = document.querySelector('.btn');//submitben
 const clearBtn = document.querySelector('.clear-btn');
 // const container = document.querySelector('.container');
@@ -8,19 +14,47 @@ const list = document.querySelector('.grocery-list');
 
 let editElement;
 let editId = "";
-editFlag = false;
+let editFlag = false;
 
+<<<<<<< HEAD
 formData.addDataEventListener('submit', addData);
 clearBtn.addDataEventListener('click',remove);
 
 window.addDataEventListener('load',function(){
     
+=======
+// eventlistners
+form.addEventListener('submit', add);
+clearBtn.addEventListener('click',remove);
+
+window.addEventListener('load',function(){
+>>>>>>> 3d11883692104da044c767944c009b9db0a40f56
         getListOnLoad();
 });
 
+//create one init function => initialisation function something like main func in java , which is entry point to file functionality
+function init(){
+    //check if previous data is avail in ls 
+    hydrate()
+    
+}
+init()
+
+function hydrate(){
+    //TODO: get previouly saved data and render list items 
+    //TODO: loop through list and render item via `renderItem`
+}
 
 
+function renderItem(){} // helper function which will only take item info, attaches listners and renders in list
+
+
+<<<<<<< HEAD
 function addData(event) {
+=======
+//TODO: update this funcation remove redundant code  
+function add(event) {
+>>>>>>> 3d11883692104da044c767944c009b9db0a40f56
     event.preventDefault();
     const itemId = createRandomId();
     // console.log(itemId);
