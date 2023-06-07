@@ -8,19 +8,40 @@ const list = document.querySelector('.grocery-list');
 
 let editElement;
 let editId = "";
-editFlag = false;
+let editFlag = false;
 
+
+
+
+
+// initialisation function
+function init(){
+     invokeApplisteners()// attach page listeners  
+    //TODO: check for previous data in ls 
+    // call this `getListOnLoad` function and return only list items,remove html code from there
+    //TODO: loop through list and render items 
+    //TODO: renderItem(listItem)
+}
+
+//listeners 
+function invokeApplisteners(){
 formData.addDataEventListener('submit', addData);
 clearBtn.addDataEventListener('click',remove);
-
 window.addDataEventListener('load',function(){
-    
         getListOnLoad();
 });
+}
 
+function renderItem(item){
+//TODO: create rendom id
+//TODO: attach html to page in list 
+//TODO: attach listeners
+}
 
 
 function addData(event) {
+    //TODO: remove unneccory code now that we have renderItem function
+    //TODO: create seprate function for edit item code, as function name suggestes it should only have add functionality related code
     event.preventDefault();
     const itemId = createRandomId();
     // console.log(itemId);
