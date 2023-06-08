@@ -8,59 +8,109 @@ const list = document.querySelector('.grocery-list');
 
 let editElement;
 let editId = "";
-editFlag = false;
+let editFlag = false;
 
+init();
+
+
+
+// initialisation function
+function init(){
+
+    invokeApplisteners();
+
+    //TODO: check for previous data in ls 
+    // call this `getListOnLoad` function and return only list items,remove html code from there
+    //TODO: loop through list and render items 
+    //TODO: renderItem(listItem)
+}
+
+//listeners 
+function invokeApplisteners(){
 formData.addEventListener('submit', addData);
 clearBtn.addEventListener('click',remove);
 
 window.addEventListener('load',function(){
-    
         getListOnLoad();
 });
+}
 
+function renderItem(value,itemId){
+    const element = document.createElement('article');
+    element.classList.add('grocery-item');
+    const attribute = document.createAttribute('data-id');
+    attribute.value = itemId;
+    // console.log("attribute",attribute.value);
+    element.setAttributeNode(attribute);
+    element.innerHTML = `<p>${value}</p>
+                <div class="btn-container">
+                <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
+                <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+                </div>
+                </div>`
+             
+                list.appendChild(element);
+
+                const dele=document.querySelector("#delete-" +itemId);
+                const edit=document.querySelector("#edit-" +itemId);
+
+                edit.addEventListener("click",editItems);
+                dele.addEventListener("click",delItems);
+
+                addToLocalStorage(itemId,value);
+
+//TODO: attach html to page in list 
+//TODO: attach listeners
+}
 
 
 function addData(event) {
+    //TODO: remove unneccory code now that we have renderItem function
+    //TODO: create seprate function for edit item code, as function name suggestes it should only have add functionality related code
     event.preventDefault();
     const itemId = createRandomId();
     // console.log(itemId);
     const value = items.value;
-    if (value !== " ") {
-        const element = document.createElement('article');
-        element.classList.add('grocery-item');
-        const attribute = document.createAttribute('data-id');
-        attribute.value = itemId;
-        // console.log("attribute",attribute.value);
-        element.setAttributeNode(attribute);
-        element.innerHTML = `<p>${value}</p>
-                    <div class="btn-container">
-                    <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
-                    <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
-                    </div>
-                    </div>`
+    console.log(value);
+   if(value!==" "){
+      renderItem(value,itemId);  
+
+   }
+        // const element = document.createElement('article');
+        // element.classList.add('grocery-item');
+        // const attribute = document.createAttribute('data-id');
+        // attribute.value = itemId;
+        // // console.log("attribute",attribute.value);
+        // element.setAttributeNode(attribute);
+        // element.innerHTML = `<p>${value}</p>
+        //             <div class="btn-container">
+        //             <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
+        //             <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+        //             </div>
+        //             </div>`
                  
-                    list.appendChild(element);
+        //             list.appendChild(element);
 
-                    const dele=document.querySelector("#delete-" +itemId);
-                    const edit=document.querySelector("#edit-" +itemId);
+        //             const dele=document.querySelector("#delete-" +itemId);
+        //             const edit=document.querySelector("#edit-" +itemId);
 
-                    edit.addDataEventListener("click",editItems);
-                    dele.addDataEventListener("click",delItems);
+        //             edit.addDataEventListener("click",editItems);
+        //             dele.addDataEventListener("click",delItems);
 
                     
                   
-                    addDataToLocalStorage(itemId,value);
+                    // addDataToLocalStorage(itemId,value);
+                    // sorting();
+                    
+                    // }
+                    else if(value && editFlag){
+                        editElement.innerHTML=value;
+                        
+                        editLocalStorage(editId,value);
+                        
+                        
+                    }
                     setToDefault();
-                    sorting();
-            
-    }
-    else if(value && editFlag){
-        editElement.innerHTML=value;
-        
-        editLocalStorage(editId,value);
-        setToDefault();
-
-    }
     
 
 }
@@ -81,32 +131,31 @@ function delItems(event){
     // removeFromLocalStorage(id);
 }
 function editItems(event){
-    // const element=event.currentTarget.parentElement.parentElement.parentElement;
-    //  editElement=event.currentTarget.parentElement.parentElement.previousElementSibling;
-    
-    // items.value=element.textContent;
-    //  editFlag=true;
-    //  editId=element.dataset.id;
-    //  submit.textContent="edit";
      
     const id=event.currentTarget.id;
     console.log({id});
     const element=event.currentTarget.parentElement.previousElementSibling;
     console.log(element);
-    const editId=event.currentTarget.id?.replace(element);
+    // const editId=event.currentTarget.id?.replace(element);
     console.log(editId);
-
-    // let pElement=items.value;
-
+    const oldValue=element.textContent;
+    console.log("oldvalue",oldValue);
     items.value=element.textContent;
-    console.log(items.value);
+    element.textContent=oldValue;
+    // let pElement=items.value;
+    
+    // items.value=element.textContent;
+    // console.log(items.value);
 
-    const editElement=items.value;
+
+    // const editElement=items.value;
     console.log("editElements",editElement);
     
     element.textContent=editElement;
+    element.value=editElement;
     console.log(element.textContent);
-    element.parentElement.remove();
+    // element.parentElement.remove();
+   
 
     
     submit.textContent="edit";
@@ -123,12 +172,12 @@ function editItems(event){
 
 }
 function setToDefault(){
-    items.value="";
+    items.value=" ";
     editFlag=false;
     editId='';
-    submit.textContent="addData";
+    submit.textContent="add";
 }
-function addDataToLocalStorage(id,value){
+function addToLocalStorage(id,value){
    const grocery={id,value};
 //    console.log(grocery);
 let items=getLocalStorage();
@@ -148,15 +197,12 @@ function remove(){
             localStorage.removeItem(item);
         }); 
     }
-   else {
-        // document.classList.addData(".show-btn");
-
-    }
-    // container.classList.remove(container);
-    alert("list cleared");
+ 
+    
     localStorage.removeItem('list');
    
-        // document.classList.addData(".show-btn");
+   
+
     
     setToDefault();
 }
@@ -195,28 +241,33 @@ function createRandomId(){
 
 function getListOnLoad(){
     const dataItems=getLocalStorage();
+    
     console.log(dataItems);
     for(var i=0;i<dataItems.length;i++){
-    const element = document.createElement('article');
-        element.classList.addData('grocery-item');
-        const attribute = document.createAttribute('data-id');
-        const itemId=dataItems[i].id;
-        attribute.value = itemId;
-        element.setAttributeNode(attribute);
-        element.innerHTML = `<p>${dataItems[i].value}</p>
-                    <div class="btn-container">
-                    <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
-                    <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
-                    </div>
-                    </div>`
+        const id=dataItems[i].id;
+        renderItem(dataItems[i].value,id);
+
+    // const element = document.createElement('article');
+    //     element.classList.addData('grocery-item');
+    //     const attribute = document.createAttribute('data-id');
+    //     const itemId=dataItems[i].id;
+    //     attribute.value = itemId;
+    //     element.setAttributeNode(attribute);
+    //     element.innerHTML = `<p>${dataItems[i].value}</p>
+    //                 <div class="btn-container">
+    //                 <button type="button" id=edit-${itemId}><i class="fa fa-pencil edit fa-lg" aria-hidden="true"></i></button>
+    //                 <button type="button" id= delete-${itemId}><i class="fa fa-trash del fa-lg" aria-hidden="true"></i></button>
+    //                 </div>
+    //                 </div>`
                     
-                    list.appendChild(element);
+    //                 list.appendChild(element);
 
-                    const dele=document.querySelector("#delete-" +itemId);
-                    const edit=document.querySelector("#edit-" +itemId);
+    //                 const dele=document.querySelector("#delete-" +itemId);
+    //                 const edit=document.querySelector("#edit-" +itemId);
 
-                    edit.addDataEventListener("click",editItems);
-                    dele.addDataEventListener("click",delItems);
+    //                 edit.addDataEventListener("click",editItems);
+    //                 dele.addDataEventListener("click",delItems);
+
 
                     
     }    
