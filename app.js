@@ -29,6 +29,7 @@ function init(){
 function invokeApplisteners(){
 formData.addEventListener('submit', addData);
 clearBtn.addEventListener('click',remove);
+
 window.addEventListener('load',function(){
         getListOnLoad();
 });
@@ -196,15 +197,12 @@ function remove(){
             localStorage.removeItem(item);
         }); 
     }
-   else {
-        // document.classList.addData(".show-btn");
-
-    }
-    // container.classList.remove(container);
+ 
+    
     localStorage.removeItem('list');
-    // alert("list cleared");
    
-        // document.classList.addData(".show-btn");
+   
+
     
     setToDefault();
 }

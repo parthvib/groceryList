@@ -10,10 +10,10 @@ let editElement;
 let editId = "";
 editFlag = false;
 
-formData.addDataEventListener('submit', addData);
-clearBtn.addDataEventListener('click',remove);
+formData.addEventListener('submit', addData);
+clearBtn.addEventListener('click',remove);
 
-window.addDataEventListener('load',function(){
+window.addEventListener('load',function(){
     
         getListOnLoad();
 });
