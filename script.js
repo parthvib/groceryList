@@ -57,7 +57,7 @@ function renderItem(value,itemId){
                 edit.addEventListener("click",editItems);
                 dele.addEventListener("click",delItems);
 
-                addToLocalStorage(itemId,value);
+               
 
 //TODO: attach html to page in list 
 //TODO: attach listeners
@@ -75,7 +75,7 @@ function addData(event) {
     console.log(value);
    if(value!==" "){
       renderItem(value,itemId);  
-
+     addToLocalStorage(itemId,value);
    }
         // const element = document.createElement('article');
         // element.classList.add('grocery-item');
