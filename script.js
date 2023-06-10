@@ -27,7 +27,7 @@ function init(){
 
 //listeners 
 function invokeApplisteners(){
-formData.addEventListener('submit', addData);
+formData.addEventListener('submit',addData);
 clearBtn.addEventListener('click',remove);
 
 window.addEventListener('load',function(){
@@ -57,7 +57,7 @@ function renderItem(value,itemId){
                 edit.addEventListener("click",editItems);
                 dele.addEventListener("click",delItems);
 
-                addToLocalStorage(itemId,value);
+                // addToLocalStorage(itemId,value);
 
 //TODO: attach html to page in list 
 //TODO: attach listeners
@@ -132,44 +132,53 @@ function delItems(event){
     // removeFromLocalStorage(id);
 }
 function editItems(event){
-     
+    editFlag='true';
+    submit.textContent="edit";
     const id=event.currentTarget.id;
     console.log({id});
     const element=event.currentTarget.parentElement.previousElementSibling;
     console.log(element);
-    // const editId=event.currentTarget.id?.replace(element);
-    console.log(editId);
-    const oldValue=element.textContent;
-    console.log("oldvalue",oldValue);
-    items.value=element.textContent;
-    element.textContent=oldValue;
-    // let pElement=items.value;
-    
-    // items.value=element.textContent;
-    // console.log(items.value);
-
-
-    // const editElement=items.value;
-    console.log("editElements",editElement);
-    
-    element.textContent=editElement;
-    element.value=editElement;
-    console.log(element.textContent);
+    items.value=element.innerHTML;
     // element.parentElement.remove();
+    //  if(clearBtn.textContent=="edit",addEventListener('click',)){
+         console.log("heelo");
+     const editId=event.currentTarget.id?.replace(element);
+     element.id.replace(editId);
+     
+        //  console.log("editId",editId);
+        //  const newValue=items.value;
+        //  console.log(newValue);
+        // element.parentElement.remove();
+    //  }
+     
+    // // items.value=element.textContent;
+   
+    // // let pElement=items.value;
+    
+    
+    // element.innerHTML=items.value;
+    // const editElement=items.value;
+    // console.log("editElements",editElement);
+    
+    // element.textContent=editElement;
+    // element.value=editElement;
+    // console.log(element.textContent);
+    // // element.parentElement.remove();
    
 
     
-    submit.textContent="edit";
+    // submit.textContent="edit";
    
-    const newElement=items.value;
-    let newId =newElement.id;
-    element.textContent=newElement.textContent;
-    // document.id.remove(id);
+    // const newElement=items.value;
+    // let newId =newElement.id;
+    // element.textContent=newElement.textContent;
+    // // document.id.remove(id);
+    
+    // element.textContent=newElement.textContent;
+    // editLocalStorage(editId,newElement);
+    // console.log("newId",newId);
 
-   element.textContent=newElement.textContent;
-   editLocalStorage(editId,newElement);
-
-    //  setToDefault();
+    // //  setToDefault();
 
 }
 function setToDefault(){
